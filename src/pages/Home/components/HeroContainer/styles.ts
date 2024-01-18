@@ -63,6 +63,7 @@ export const HeroImage = styled.div`
   justify-content: center;
   align-items: center;
   min-width: clamp(28rem, 35rem + 1vw, 48rem);
+  max-width: 48rem;
 
   img {
     object-fit: cover;
