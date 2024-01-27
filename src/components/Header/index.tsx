@@ -2,26 +2,31 @@ import { CartButton, HeaderContainer, LocationButton } from './styles'
 import coffeLogo from '../../assets/logo.svg'
 import { MapPin } from '@phosphor-icons/react'
 import { ShoppingCart } from '@phosphor-icons/react/dist/ssr'
+import { useCart } from '../../hooks/useCart'
+import { Link } from 'react-router-dom'
 
 export const Header = () => {
+  const { cartItems } = useCart()
+
+  const totalCarts = String(cartItems.length)
   return (
     <HeaderContainer>
       <nav>
-        <a href="http://">
+        <Link to={'/'}>
           <img src={coffeLogo} alt="Coffe Delivery Logo" />
-        </a>
+        </Link>
         <div>
-          <a href="http://">
+          <Link to={'/'}>
             <LocationButton>
               <MapPin size={22} weight="fill" />
               Porto Alegre, RS
             </LocationButton>
-          </a>
-          <a href="http://">
-            <CartButton $quantity="3">
+          </Link>
+          <Link to={'/checkout'}>
+            <CartButton $quantity={totalCarts}>
               <ShoppingCart size={22} weight="fill" />
             </CartButton>
-          </a>
+          </Link>
         </div>
       </nav>
     </HeaderContainer>

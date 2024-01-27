@@ -11,19 +11,17 @@ import {
 } from './styles'
 import { ICoffee } from '../../../../../interfaces/coffee'
 import { useState } from 'react'
+import { useCart } from '../../../../../hooks/useCart'
 
 type Operation = 'increase' | 'decrease'
 
-interface CoffeeCardProps extends ICoffee {}
-export const CoffeeCard = ({
-  title,
-  description,
-  image,
-  tags,
-  price,
-}: CoffeeCardProps) => {
+interface CoffeeCardProps {
+  coffee: ICoffee
+}
+export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
   const [quantity, setQuantity] = useState<number>(1)
-  const formattedPrice = price.toFixed(2).replace('.', ',')
+  const formattedPrice = coffee.price.toFixed(2).replace('.', ',')
+  const { addCoffeeToCart } = useCart()
 
   const handleQuantityChange = (operation: Operation) => {
     const operations = {
@@ -34,18 +32,29 @@ export const CoffeeCard = ({
     operations[operation]()
   }
 
+  function handleAddToCart() {
+    const coffeeToAdd = {
+      ...coffee,
+      quantity,
+    }
+
+    addCoffeeToCart(coffeeToAdd)
+    setQuantity(1)
+  }
+
   return (
     <CoffeeCardContainer>
       <article>
         <CoffeeCardLogo>
-          <img src={image} alt="coffe picture" />
+          <img src={coffee.image} alt="coffe picture" />
         </CoffeeCardLogo>
         <CoffeeCardTagsList>
-          {!!tags && tags.map((tag, i) => <CoffeeCardTag key={i} text={tag} />)}
+          {!!coffee.tags &&
+            coffee.tags.map((tag, i) => <CoffeeCardTag key={i} text={tag} />)}
         </CoffeeCardTagsList>
         <CoffeeCardDescription>
-          <h3>{title}</h3>
-          <p>{description}</p>
+          <h3>{coffee.title}</h3>
+          <p>{coffee.description}</p>
         </CoffeeCardDescription>
 
         <CoffeeCardFooter>
@@ -58,7 +67,7 @@ export const CoffeeCard = ({
               quantity={quantity}
               quantityChangeFunction={handleQuantityChange}
             />
-            <button>
+            <button onClick={handleAddToCart}>
               <ShoppingCart size={22} weight="fill" />
             </button>
           </AddCoffeeCartWrapper>

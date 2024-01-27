@@ -14,7 +14,9 @@ export const OurCoffees = () => {
 
         <ul>
           {!!coffees &&
-            coffees.map((coffee) => <CoffeeCard key={coffee.id} {...coffee} />)}
+            coffees.map((coffee) => (
+              <CoffeeCard key={coffee.id} coffee={coffee} />
+            ))}
         </ul>
       </OurCoffesContent>
     </OurCoffesContainer>

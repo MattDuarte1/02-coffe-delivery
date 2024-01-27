@@ -1,11 +1,16 @@
 import { CoffeOrderConfirmContainer, CoffeOrderRowInfo } from './styles'
 
-export const CoffeOrderConfirm = () => {
+interface CoffeOrderConfirmProps {
+  totalItemsPrice: string
+}
+export const CoffeOrderConfirm = ({
+  totalItemsPrice,
+}: CoffeOrderConfirmProps) => {
   return (
     <CoffeOrderConfirmContainer>
       <CoffeOrderRowInfo>
         <span>Total de itens</span>
-        <span>R$ 29,70</span>
+        <span>R$ {totalItemsPrice}</span>
       </CoffeOrderRowInfo>
       <CoffeOrderRowInfo>
         <span>Entrega</span>
@@ -13,7 +18,7 @@ export const CoffeOrderConfirm = () => {
       </CoffeOrderRowInfo>
       <CoffeOrderRowInfo>
         <strong>Total</strong>
-        <strong>R$ 33,20</strong>
+        <strong>R$ {totalItemsPrice}</strong>
       </CoffeOrderRowInfo>
       <button type="submit">Confirmar Pedido</button>
     </CoffeOrderConfirmContainer>
