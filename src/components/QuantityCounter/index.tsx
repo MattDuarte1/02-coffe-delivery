@@ -1,9 +1,10 @@
 import { Minus, Plus } from '@phosphor-icons/react'
 import { QuantityCounterContainer } from './styles'
+import { Operation } from '../../interfaces/operation'
 
 interface QuantityCounterProps {
   quantity: number
-  quantityChangeFunction: (operation: 'increase' | 'decrease') => void
+  quantityChangeFunction: (operation: Operation) => void
 }
 export const QuantityCounter = ({
   quantity,
@@ -11,11 +12,11 @@ export const QuantityCounter = ({
 }: QuantityCounterProps) => {
   return (
     <QuantityCounterContainer>
-      <button onClick={() => quantityChangeFunction('decrease')}>
+      <button type="button" onClick={() => quantityChangeFunction('decrease')}>
         <Minus size={14} weight="bold" />
       </button>
       <span>{quantity}</span>
-      <button onClick={() => quantityChangeFunction('increase')}>
+      <button type="button" onClick={() => quantityChangeFunction('increase')}>
         <Plus size={14} weight="bold" />
       </button>
     </QuantityCounterContainer>
