@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components'
 import { mixins } from '../../../../../../styles/mixins'
 
+interface ContentContainerProps {
+  $haserror: string
+}
+
 export const PaymentMethodContainer = styled.li`
   width: min(100%, 17.8rem);
   input {
@@ -20,7 +24,7 @@ export const PaymentMethodContainer = styled.li`
   }
 `
 
-export const ContentContainer = styled.div`
+export const ContentContainer = styled.div<ContentContainerProps>`
   padding: 1.6rem;
   background: ${({ theme }) => theme.colors['base-button']};
   color: ${({ theme }) => theme.colors['base-text']};
@@ -45,4 +49,12 @@ export const ContentContainer = styled.div`
   }
 
   user-select: none;
+
+  ${({ $haserror }) => {
+    if ($haserror === 'true') {
+      return css`
+        border: 1px solid rgba(231, 14, 2, 0.7);
+      `
+    }
+  }}
 `

@@ -10,18 +10,20 @@ import {
   AddCoffeeCartWrapper,
 } from './styles'
 import { ICoffee } from '../../../../../interfaces/coffee'
-import { useState } from 'react'
 import { useCart } from '../../../../../hooks/useCart'
-
-type Operation = 'increase' | 'decrease'
+import { useState } from 'react'
+import { formatMoney } from '../../../../../utils/formatMoney'
 
 interface CoffeeCardProps {
   coffee: ICoffee
 }
+
+type Operation = 'increase' | 'decrease'
+
 export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
+  const formattedPrice = formatMoney(coffee.price)
+  const { createNewCoffeToCart } = useCart()
   const [quantity, setQuantity] = useState<number>(1)
-  const formattedPrice = coffee.price.toFixed(2).replace('.', ',')
-  const { addCoffeeToCart } = useCart()
 
   const handleQuantityChange = (operation: Operation) => {
     const operations = {
@@ -38,7 +40,7 @@ export const CoffeeCard = ({ coffee }: CoffeeCardProps) => {
       quantity,
     }
 
-    addCoffeeToCart(coffeeToAdd)
+    createNewCoffeToCart(coffeeToAdd)
     setQuantity(1)
   }
 

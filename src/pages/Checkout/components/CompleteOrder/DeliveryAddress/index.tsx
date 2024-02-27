@@ -2,8 +2,13 @@ import { MapPinLine } from '@phosphor-icons/react'
 import { InputComponent } from '../../../../../components/Input'
 import { DeliveryAddressContainer, DeliveryAddressForm } from './styles'
 import { SectionTitle } from '../SectionTitle'
+import { useFormContext } from 'react-hook-form'
 
 export const DeliveryAddress = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext()
   return (
     <DeliveryAddressContainer>
       <SectionTitle
@@ -12,21 +17,51 @@ export const DeliveryAddress = () => {
         icon={<MapPinLine size={22} />}
       />
       <DeliveryAddressForm>
-        <InputComponent type="text" name="cep" placeholder="CEP" />
-        <InputComponent type="text" name="street" placeholder="Rua" />
+        <InputComponent
+          type="text"
+          placeholder="CEP"
+          hasError={errors.cep?.message}
+          {...register('cep')}
+        />
+        <InputComponent
+          type="text"
+          placeholder="Rua"
+          hasError={errors.street?.message}
+          {...register('street')}
+        />
         <div>
-          <InputComponent type="number" name="number" placeholder="Número" />
           <InputComponent
             type="text"
-            name="complement"
+            placeholder="Número"
+            hasError={errors.number?.message}
+            {...register('number')}
+          />
+          <InputComponent
+            type="text"
             placeholder="Complemento"
             hasOpcional={true}
+            {...register('complement')}
           />
         </div>
         <div>
-          <InputComponent type="text" name="district" placeholder="Bairro" />
-          <InputComponent type="text" name="city" placeholder="Cidade" />
-          <InputComponent type="text" name="state" placeholder="UF" />
+          <InputComponent
+            type="text"
+            placeholder="Bairro"
+            hasError={errors.district?.message}
+            {...register('district')}
+          />
+          <InputComponent
+            type="text"
+            placeholder="Cidade"
+            hasError={errors.city?.message}
+            {...register('city')}
+          />
+          <InputComponent
+            type="text"
+            placeholder="UF"
+            hasError={errors.state?.message}
+            {...register('state')}
+          />
         </div>
       </DeliveryAddressForm>
     </DeliveryAddressContainer>

@@ -5,8 +5,13 @@ import {
 } from './styles'
 import { PaymentMethodButton } from './PaymentMethodButton'
 import { SectionTitle } from '../SectionTitle'
+import { useFormContext } from 'react-hook-form'
 
 export const DeliveryPaymentMethodOptions = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext()
   const typesPaymentsMethods = {
     money: {
       label: 'Dinheiro',
@@ -32,7 +37,15 @@ export const DeliveryPaymentMethodOptions = () => {
 
       <DeliveryPaymentMethodButtonList>
         {Object.entries(typesPaymentsMethods).map(([key, { label, icon }]) => (
-          <PaymentMethodButton key={key} id={key} icon={icon} label={label} />
+          <PaymentMethodButton
+            key={key}
+            id={key}
+            icon={icon}
+            label={label}
+            value={key}
+            hasError={errors.paymentMethod?.message}
+            {...register('paymentMethod')}
+          />
         ))}
       </DeliveryPaymentMethodButtonList>
     </DeliveryPaymentContainer>

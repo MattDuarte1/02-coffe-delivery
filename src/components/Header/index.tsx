@@ -6,9 +6,9 @@ import { useCart } from '../../hooks/useCart'
 import { Link } from 'react-router-dom'
 
 export const Header = () => {
-  const { cartItems } = useCart()
+  const { cartItemsState } = useCart()
 
-  const totalCarts = String(cartItems.length)
+  const totalCarts = String(cartItemsState.length)
   return (
     <HeaderContainer>
       <nav>

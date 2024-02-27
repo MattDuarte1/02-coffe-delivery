@@ -2,7 +2,8 @@ import styled, { css } from 'styled-components'
 import { mixins } from '../../styles/mixins'
 
 interface InputContainerProps {
-  $hasOpcional: string
+  $hasopcional: string
+  $haserror: string
 }
 
 export const InputContainer = styled.div<InputContainerProps>`
@@ -32,8 +33,8 @@ export const InputContainer = styled.div<InputContainerProps>`
     }
   }
 
-  ${({ $hasOpcional }) => {
-    if ($hasOpcional === 'true') {
+  ${({ $hasopcional, $haserror }) => {
+    if ($hasopcional === 'true') {
       return css`
         &::after {
           content: 'Opcional';
@@ -45,6 +46,12 @@ export const InputContainer = styled.div<InputContainerProps>`
           font-style: italic;
           line-height: 130%;
         }
+      `
+    }
+
+    if ($haserror === 'true') {
+      return css`
+        border: 1px solid red;
       `
     }
   }}

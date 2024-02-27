@@ -5,24 +5,57 @@ import {
   CoffeCardLogo,
   CoffeCartCardSettings,
 } from './styles'
+import { formatMoney } from '../../../../../utils/formatMoney'
+import { Operation } from '../../../../../interfaces/operation'
 
-export const CoffeCartCard = () => {
+interface CoffeCartCardProps {
+  id: string
+  title: string
+  price: number
+  quantity: number
+  srcImage: string
+  changeQuantityCoffe: (coffeId: string, operation: Operation) => void
+  removeCoffeInCart: (coffeId: string) => void
+}
+
+export const CoffeCartCard = ({
+  id,
+  title,
+  price,
+  quantity,
+  srcImage,
+  changeQuantityCoffe,
+  removeCoffeInCart,
+}: CoffeCartCardProps) => {
+  const formattedPrice = formatMoney(price)
+
+  const handleChangeQuantityCoffe = (operation: Operation) => {
+    changeQuantityCoffe(id, operation)
+  }
+
+  const handleRemoveCoffeInCart = () => {
+    removeCoffeInCart(id)
+  }
+
   return (
     <CoffeCartCardContainer>
       <CoffeCardLogo>
-        <img src="/coffees/arabe.svg" alt="cafe" />
+        <img src={srcImage} alt="cafe" />
       </CoffeCardLogo>
       <CoffeCartCardSettings>
-        <p>Expresso Tradicional</p>
+        <p>{title}</p>
         <div>
-          <QuantityCounter quantity={1} quantityChangeFunction={() => {}} />
-          <button>
+          <QuantityCounter
+            quantity={quantity}
+            quantityChangeFunction={handleChangeQuantityCoffe}
+          />
+          <button type="button" onClick={handleRemoveCoffeInCart}>
             <Trash size={16} />
             Remover
           </button>
         </div>
       </CoffeCartCardSettings>
-      <p>R$ 9,90</p>
+      <p>R$ {formattedPrice}</p>
     </CoffeCartCardContainer>
   )
 }
